@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "target": "es2021",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "typeRoots": ["node_modules/@types"],
+    "strict": true
+  },
+  "include": ["./src/**/*"]
+}
