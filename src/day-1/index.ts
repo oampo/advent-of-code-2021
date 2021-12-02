@@ -15,11 +15,22 @@ async function* readLinesAsNumbers(pathName: string): AsyncIterable<number> {
   }
 }
 
+function isIterable<T>(iterator: Iterable<T> | AsyncIterable<T>): iterator is Iterable<T> {
+  return Symbol.iterator in (iterator as Iterable<T>);
+}
+
 async function* windowed<T>(
-  iterable: AsyncIterable<T>,
+  iterable: Iterable<T> | AsyncIterable<T>,
   windowSize: number
 ): AsyncIterable<T[]> {
-  const iterator: AsyncIterator<T> = iterable[Symbol.asyncIterator]();
+  let iterator: Iterator<T> | AsyncIterator<T>;
+  if (isIterable(iterable)) {
+    iterator = iterable[Symbol.iterator]();
+  }
+  else {
+    iterator = iterable[Symbol.asyncIterator]();
+  }
+
   const window = [];
   for (let i = 0; i < windowSize; i++) {
     const result = await iterator.next();
@@ -39,15 +50,22 @@ async function* windowed<T>(
   }
 }
 
-async function* sum(iterable: AsyncIterable<number[]>): AsyncIterable<number> {
+async function* sum(iterable: Iterable<number[]> | AsyncIterable<number[]>): AsyncIterable<number> {
   for await (const values of iterable) {
-    yield values.reduce((sum, x) => sum + x , 0);
+    yield values.reduce((sum, x) => sum + x, 0);
   }
 }
 
-async function countIncreases(values: AsyncIterable<number>): Promise<number> {
-  const it: AsyncIterator<number> = values[Symbol.asyncIterator]();
-  const result = await it.next();
+async function countIncreases(values: Iterable<number> | AsyncIterable<number>): Promise<number> {
+  let iterator: Iterator<number> | AsyncIterator<number>;
+  if (isIterable(values)) {
+    iterator = values[Symbol.iterator]();
+  }
+  else {
+    iterator = values[Symbol.asyncIterator]();
+  }
+
+  const result = await iterator.next();
 
   if (result.done) {
     return 0;
