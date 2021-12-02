@@ -6,5 +6,8 @@
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "ignorePatterns": ["build"]
+  "ignorePatterns": ["build"],
+  "rules": {
+    "@typescript-eslint/no-namespace": "off"
+  }
 }

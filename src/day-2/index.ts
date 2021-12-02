@@ -7,10 +7,12 @@ enum Direction {
   FORWARD = "forward",
 }
 
-function directionFromString(s: string): Direction {
-  if (!Object.values(Direction).includes(s as Direction))
-    throw new Error(`Unknown direction: ${s}`);
-  return s as Direction;
+namespace Direction {
+  export function fromString(s: string): Direction {
+    if (!Object.values(Direction).includes(s as Direction))
+      throw new Error(`Unknown direction: ${s}`);
+    return s as Direction;
+  }
 }
 
 interface Command {
@@ -18,12 +20,14 @@ interface Command {
   distance: number;
 }
 
-function toCommand(s: string): Command {
-  const [direction, distance] = s.split(" ");
-  return {
-    direction: directionFromString(direction),
-    distance: Number(distance),
-  };
+namespace Command {
+  export function fromString(s: string): Command {
+    const [direction, distance] = s.split(" ");
+    return {
+      direction: Direction.fromString(direction),
+      distance: Number(distance),
+    };
+  }
 }
 
 interface Result {
@@ -65,7 +69,7 @@ function part2(commands: Command[]): Result {
 
 function main() {
   const data = readFileSync(path.join(__dirname, "input.txt"), "utf-8");
-  const commands = data.trim().split("\n").map(toCommand);
+  const commands = data.trim().split("\n").map(Command.fromString);
 
   const { depth: depthA, position: positionA} = part1(commands);
   console.log("Part 1");
