@@ -71,13 +71,13 @@ function main() {
   const data = readFileSync(path.join(__dirname, "input.txt"), "utf-8");
   const commands = data.trim().split("\n").map(Command.fromString);
 
-  const { depth: depthA, position: positionA} = part1(commands);
+  const { depth: depthA, position: positionA } = part1(commands);
   console.log("Part 1");
   console.log("Depth is", depthA);
   console.log("Position is", positionA);
   console.log("Depth times position is", depthA * positionA);
 
-  const { depth: depthB, position: positionB} = part2(commands);
+  const { depth: depthB, position: positionB } = part2(commands);
   console.log("Part 2");
   console.log("Depth is", depthB);
   console.log("Position is", positionB);

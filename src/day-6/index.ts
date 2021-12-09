@@ -17,6 +17,7 @@ class Fish {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function naive(fishes: Fish[], days: number): number {
   for (let i = 0; i < days; i++) {
     const newFishes = [];
@@ -31,13 +32,13 @@ function naive(fishes: Fish[], days: number): number {
 }
 
 function lessNaive(fishes: Fish[], days: number): number {
-  const fishCounts = Array.from({length: 9}, () => 0);
+  const fishCounts = Array.from({ length: 9 }, () => 0);
   let dayZero = 0;
   for (const fish of fishes) {
     fishCounts[fish.timer]++;
   }
 
-  for (let i=0; i<days; i++) {
+  for (let i = 0; i < days; i++) {
     const newFishes = fishCounts[dayZero];
     dayZero = (dayZero + 1) % fishCounts.length;
     const daySix = (dayZero + 6) % fishCounts.length;

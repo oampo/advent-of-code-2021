@@ -1,5 +1,3 @@
-
-
 import { readFileSync } from "fs";
 import * as path from "path";
 
@@ -9,7 +7,7 @@ const depths = data.trim().split("\n").map(Number);
 
 function windowedCount(depths: number[], window: number): number {
   let count = 0;
-  for (let i=window; i<depths.length; i++) {
+  for (let i = window; i < depths.length; i++) {
     const prev = depths[i - window];
     const current = depths[i];
     if (current > prev) count++;

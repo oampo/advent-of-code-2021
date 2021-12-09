@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import * as path from "path";
 
-type IntersectionMap = {[key: string]: number};
+type IntersectionMap = { [key: string]: number };
 
 class Vec2 {
   x: number;
@@ -98,7 +98,7 @@ function main() {
   const intersections: IntersectionMap = {};
 
   for (const segment of segments) {
-    const {start, end} = segment;
+    const { start, end } = segment;
     const step = end.sub(start).sign();
     let position = start.clone();
     while (!position.equals(end)) {

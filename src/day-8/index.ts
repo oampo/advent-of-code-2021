@@ -167,7 +167,7 @@ function fingerprintsAreEqual(
 }
 
 function getOutputValue(entry: Entry, patternNumbers: number[]): number {
-  const {patterns, output} = entry;
+  const { patterns, output } = entry;
   let value = 0;
   for (const [digit, outputPattern] of output.entries()) {
     for (const [i, pattern] of patterns.entries()) {
